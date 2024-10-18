@@ -2,7 +2,7 @@ import streamlit as st
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 import torch
 
-# Load the fine-tuned model and tokenizer
+# Load the fine-tuned model and tokenizer from the folder
 model = GPT2LMHeadModel.from_pretrained('./fine_tuned_model')
 tokenizer = GPT2Tokenizer.from_pretrained('./fine_tuned_model')
 
@@ -16,9 +16,9 @@ def generate_response(prompt):
         max_length=150,
         num_return_sequences=1,
         pad_token_id=tokenizer.eos_token_id,
-        top_k=10,  # Lower top_k for more focused results
-        top_p=0.7,  # Lower top_p for more deterministic results
-        temperature=0.5,  # Lower temperature for more precise responses
+        top_k=50,
+        top_p=0.9,
+        temperature=0.7,
         do_sample=True
     )
     return tokenizer.decode(output[0], skip_special_tokens=True)
